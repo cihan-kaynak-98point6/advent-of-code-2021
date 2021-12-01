@@ -13,17 +13,10 @@ fun main() {
 
     fun part2(input: List<String>): Int {
 
-        fun sum(input: List<Int>, start: Int, window: Int): Int{
-            val end = (start + window - 1).coerceAtMost(input.size - 1)
-            return input.slice(start..end).sum()
-        }
-
         var sumIncreaseCount = 0
         var previousSum = Int.MAX_VALUE
-        val measurements = input.map { it.toInt() }
-        measurements.forEachIndexed {
-                index, _ ->
-            val sum = sum(measurements, index, 3)
+        input.map { it.toInt() }.windowed(3, 1, true).forEach {
+            val sum = it.sum()
             if( sum > previousSum ){
                 sumIncreaseCount++
             }
